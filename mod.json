@@ -1,0 +1,263 @@
+{
+	"geode": "5.11.2",
+	"gd": {
+		"win": "2.2081",
+		"android": "2.2081",
+		"mac": "2.2081"
+	},
+	"id": "lz.prettysmooth",
+	"name": "PrettySmooth",
+	"version": "v1.1.1",
+	"developer": "LZ",
+	"description": "Optimizes the WHOLE game (menus, levels and editor) on PC and mobile. Includes UltraSmooth mode.",
+	"links": {
+		"source": "https://github.com/LZDLabs/PrettySmooth"
+	},
+	"tags": ["performance", "enhancement", "editor", "interface"],
+	"resources": {
+		"sprites": [
+			"resources/*.png"
+		]
+	},
+	"settings": {
+		"title-general": {
+			"type": "title",
+			"name": "General / FPS",
+			"description": "Tip: the purple PrettySmooth menu (PS button in the main menu, pause menu and editor pause) is the easiest way to configure everything, and it can be switched to Portuguese."
+		},
+		"language": {
+			"type": "string",
+			"name": "Language / Idioma",
+			"description": "Language of the PrettySmooth menus.",
+			"default": "English",
+			"one-of": ["English", "Portuguese"]
+		},
+		"preset": {
+			"type": "string",
+			"name": "Preset",
+			"description": "Applies a group of settings at once.\n\n<cp>Vanilla</c>: original game.\n<cp>Balanced</c>: light, almost no visual loss.\n<cp>Performance</c>: cuts heavy effects.\n<cp>Potato</c>: makes the game UGLY to run on anything.\n<cp>UltraSmooth</c>: maximum smoothness.\n<cp>Custom</c>: you changed something manually.",
+			"default": "Balanced",
+			"one-of": ["Custom", "Vanilla", "Balanced", "Performance", "Potato", "UltraSmooth"]
+		},
+		"fps-unlock": {
+			"type": "bool",
+			"name": "Custom FPS limit",
+			"description": "Ignores the game's FPS limit and uses 'Target FPS'. On weak phones, locking at 60 gives a steadier game than an unstable 90.",
+			"default": false
+		},
+		"fps-target": {
+			"type": "int",
+			"name": "Target FPS",
+			"description": "FPS used when 'Custom FPS limit' is on. On mobile the real maximum is the screen refresh rate.",
+			"default": 240,
+			"min": 30,
+			"max": 1000,
+			"control": {
+				"arrows": true,
+				"arrow-step": 10,
+				"big-arrows": true,
+				"big-arrow-step": 60,
+				"slider": true,
+				"slider-step": 10,
+				"input": true
+			}
+		},
+		"vsync-off": {
+			"type": "bool",
+			"name": "Force VSync off",
+			"description": "Turns VSync off even if the game tries to turn it on. Less input lag and FPS above the monitor refresh rate (may tear).",
+			"default": false,
+			"platforms": ["win"]
+		},
+		"frame-pacing": {
+			"type": "bool",
+			"name": "Smooth Frame Pacing (menus)",
+			"description": "Smooths frame times in menus to remove micro-stutters. Never touches levels, so clicks stay exact.",
+			"default": true
+		},
+		"high-priority": {
+			"type": "bool",
+			"name": "High priority",
+			"description": "Asks Windows to give Geometry Dash CPU priority.",
+			"default": false,
+			"platforms": ["win"]
+		},
+		"precise-timer": {
+			"type": "bool",
+			"name": "High precision timer",
+			"description": "Uses the 1ms Windows timer for a steadier FPS limiter.",
+			"default": true,
+			"platforms": ["win"]
+		},
+		"fps-counter": {
+			"type": "bool",
+			"name": "Purple FPS counter",
+			"description": "Shows an FPS counter in the corner of the screen.",
+			"default": false
+		},
+		"title-levels": {
+			"type": "title",
+			"name": "Levels"
+		},
+		"level-particles": {
+			"type": "string",
+			"name": "Level particles",
+			"description": "Normal, Reduced (uses the percentage below) or Off.",
+			"default": "Reduced",
+			"one-of": ["Normal", "Reduced", "Off"]
+		},
+		"particle-amount": {
+			"type": "int",
+			"name": "Particle amount (%)",
+			"description": "Percentage of particles kept when the mode is 'Reduced' (levels, menus and editor).",
+			"default": 60,
+			"min": 5,
+			"max": 100,
+			"control": {
+				"arrows": true,
+				"arrow-step": 5,
+				"slider": true,
+				"slider-step": 5,
+				"input": true
+			}
+		},
+		"no-shaders": {
+			"type": "bool",
+			"name": "Disable shaders",
+			"description": "Ignores shader triggers (blur, glitch, chromatic, etc). Very heavy on phones.",
+			"default": false
+		},
+		"no-shake": {
+			"type": "bool",
+			"name": "Disable camera shake",
+			"description": "Removes camera shakes.",
+			"default": false
+		},
+		"no-glow": {
+			"type": "bool",
+			"name": "Remove glow",
+			"description": "Hides the object glow layers. May hide glow decorations (ugly, runs better).",
+			"default": false
+		},
+		"force-ldm": {
+			"type": "bool",
+			"name": "Force Low Detail Mode",
+			"description": "Turns on LDM in every level that has high detail objects, without changing your saved choice.",
+			"default": false
+		},
+		"hide-background": {
+			"type": "bool",
+			"name": "Hide background",
+			"description": "Hides the level background image (ugly).",
+			"default": false
+		},
+		"hide-middleground": {
+			"type": "bool",
+			"name": "Hide middleground",
+			"description": "Hides the decorative middle layer (2.2).",
+			"default": false
+		},
+		"no-trails": {
+			"type": "bool",
+			"name": "Disable trails",
+			"description": "Disables the player and ship trails (motion streak).",
+			"default": false
+		},
+		"no-wave-trail": {
+			"type": "bool",
+			"name": "Disable wave trail",
+			"description": "Disables the wave trail.",
+			"default": false
+		},
+		"title-menus": {
+			"type": "title",
+			"name": "Menus"
+		},
+		"menu-particles": {
+			"type": "string",
+			"name": "Menu particles",
+			"default": "Reduced",
+			"one-of": ["Normal", "Reduced", "Off"]
+		},
+		"static-menu": {
+			"type": "bool",
+			"name": "Static main menu",
+			"description": "Freezes the animated main menu background (no running icons).",
+			"default": false
+		},
+		"transitions": {
+			"type": "string",
+			"name": "Transitions",
+			"description": "Speed of the fade transitions between screens.",
+			"default": "Fast",
+			"one-of": ["Normal", "Fast", "Instant"]
+		},
+		"title-editor": {
+			"type": "title",
+			"name": "Editor"
+		},
+		"editor-particles": {
+			"type": "string",
+			"name": "Editor particles",
+			"default": "Reduced",
+			"one-of": ["Normal", "Reduced", "Off"]
+		},
+		"editor-no-glow": {
+			"type": "bool",
+			"name": "Editor without glow",
+			"description": "Hides the glow layers in the editor (does not change the saved level).",
+			"default": false
+		},
+		"editor-no-shaders": {
+			"type": "bool",
+			"name": "Editor without shaders",
+			"description": "Ignores the shader preview in the editor and playtest.",
+			"default": false
+		},
+		"editor-grid": {
+			"type": "bool",
+			"name": "Draw editor grid",
+			"description": "Turning it off removes the grid and guide lines (much lighter in huge levels).",
+			"default": true
+		},
+		"editor-throttle": {
+			"type": "int",
+			"name": "Editor visibility updates",
+			"description": "1 = every frame (normal). 2-4 = updates object visibility every N frames when NOT playtesting. Much lighter in huge levels.",
+			"default": 1,
+			"min": 1,
+			"max": 4,
+			"control": {
+				"arrows": true,
+				"slider": true,
+				"slider-step": 1,
+				"input": false
+			}
+		},
+		"title-system": {
+			"type": "title",
+			"name": "System / Memory"
+		},
+		"texture-quality": {
+			"type": "string",
+			"name": "Texture quality",
+			"description": "Game's texture quality. 'Low' uses much less GPU memory and bandwidth (best for weak phones). Needs a game restart.",
+			"default": "Game",
+			"one-of": ["Game", "Low", "Medium", "High"],
+			"requires-restart": true
+		},
+		"low-textures": {
+			"type": "bool",
+			"name": "16-bit textures",
+			"description": "Loads textures in 16-bit: half the video memory. Gradients look ugly. Needs a game restart.",
+			"default": false,
+			"requires-restart": true
+		},
+		"clean-memory": {
+			"type": "bool",
+			"name": "Free memory when leaving levels",
+			"description": "Frees unused textures when leaving a level or the editor. Great for phones with little RAM.",
+			"default": true
+		}
+	}
+}

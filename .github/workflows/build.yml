@@ -1,0 +1,56 @@
+name: Build PrettySmooth
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - name: Windows
+          os: windows-latest
+
+        - name: macOS
+          os: macos-latest
+
+        - name: Android32
+          os: ubuntu-latest
+          target: Android32
+
+        - name: Android64
+          os: ubuntu-latest
+          target: Android64
+
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the mod
+        uses: geode-sdk/build-geode-mod@main
+        with:
+          # Versão estável do Geode usada no desenvolvimento (GD 2.2081)
+          sdk: v5.11.2
+          bindings-ref: 073aea4ccb72fcc8b15d181072461556682b8bf4
+          combine: true
+          target: ${{ matrix.config.target }}
+
+  package:
+    name: Juntar tudo em um .geode
+    runs-on: ubuntu-latest
+    needs: ['build']
+
+    steps:
+      - uses: geode-sdk/build-geode-mod/combine@main
+        id: build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PrettySmooth
+          path: ${{ steps.build.outputs.build-output }}
